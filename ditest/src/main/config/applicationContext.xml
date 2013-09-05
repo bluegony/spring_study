@@ -14,4 +14,10 @@ http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 		//annotation을 쓰기 위해서는 context를 추가해야함. -->
 		
 	<context:component-scan base-package="com.oraclejava.spring.*" />
+	
+		<bean id="helloService" class="com.oraclejava.spring.service.impl.HelloServiceImpl">
+			<property name="sms">
+			<ref bean="sktelecom"/>
+			</property>
+		</bean> 
 </beans>
