@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<members>
+	<person>
+		<id>1001</id>
+		<realname>손오공</realname>
+		<username>son50</username>
+	</person>
+	<person>
+		<id>1002</id>
+		<realname>홍길동</realname>
+		<username>hong1</username>
+	</person>
+	<person>
+		<id>1003</id>
+		<realname>이순신</realname>
+		<username>lee</username>
+	</person>
+</members>
