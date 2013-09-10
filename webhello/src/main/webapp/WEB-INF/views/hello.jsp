@@ -6,6 +6,47 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+
+<style type="text/css">
+<!--
+#clock {
+	width: 450px;
+	background-color: #000000;
+	color: lime;
+	text-align: center;
+	border: 10px solid blue;
+	font-size: 90px;
+	font-family: monospace;
+	font-weight: bold;
+}
+-->
+</style>
+<c:url value="/ajax/jsonIn1.html" var="json1url"/>
+<script type="text/javascript">
+$(function(){
+	$("#jsonIn").click(function(){
+		alert("${json1url}");
+		$.ajax({
+			type:"POST",
+			url:"${json1url}",
+			contentType:"application/json;charset=utf-8",	
+			data:'{"custId":"1","custName":"김태희"}',
+			dataType:"html",
+			success:function(data){
+				alert(data);
+			},
+			error:function(XMLHttpRequest,textStatus,errorThrown){
+				alert("error!!!"+XMLHttpRequest+" "+textStatus+" "+errorThrown);
+			}
+		});
+	});
+	
+});
+</script>
+
 </head>
 <body>
 	<h1>
@@ -16,7 +57,7 @@
 	<h2>customer list</h2>
 	<table BORDER="1">
 		<tr>
-			<th>id</th>
+			<th id="jsonIn">id</th>
 			<th>이름</th>
 			<th>주소</th>
 			<th>email</th>

@@ -39,8 +39,6 @@
     <root>  
         <level value="DEBUG"/>  
         <appender-ref ref="dailyout"/>  
-        <!-- 
         <appender-ref ref="stdout"/> 
-         -->
     </root>  
 </log4j:configuration>  

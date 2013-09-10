@@ -1,8 +1,17 @@
 package com.oraclejava.web;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.ibatis.session.ExecutorType;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.oraclejava.domain.FileUploadCommand;
 import com.oraclejava.domain.FileUploadItem;
+import com.oraclejava.domain.ZipCode;
 
 @Controller
 @RequestMapping("/fileupload")
@@ -48,13 +58,15 @@ public class FileUploadController {
 //		mav.addObject("contentType",contentType);
 		return mav;
 	}
-
 	
-	
-	@RequestMapping(value="uploadForm.html", method=RequestMethod.GET)
+	@RequestMapping(value="singleUpload.html", method=RequestMethod.GET)
 	public void setupForm(){
 		
 	}
+	
+	@Autowired
+	private SqlSessionFactory factory;
+	private SqlSession session;
 	
 	// fileupload/single.html
 	@RequestMapping(value="single.html", method=RequestMethod.POST)
@@ -69,8 +81,52 @@ public class FileUploadController {
 		mav.addObject("size",size);
 		mav.addObject("contentType",contentType);
 		
+		if(filename.equals("zipcode3.txt")){
+			long start = System.currentTimeMillis();
+			int cnt = readZipData2();
+			long end = System.currentTimeMillis();
+			mav.addObject("time", ( end - start )/1000.0 + " seconds" );
+			mav.addObject("msg", cnt + " zip codes!");
+
+		}
+		
 		return mav;
 	}
 	
+
+	// mybatis 이용
+	private int readZipData2(){
+		session = factory.openSession(ExecutorType.BATCH );
+		int totalCnt = 0;		
+		
+		List<ZipCode> args = new ArrayList<ZipCode>();
+		
+		try{
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("c:\\work\\upload\\zipcode3.txt"),"euc-kr"));
+			String s = "";
+			while((s=br.readLine())!=null){
+				totalCnt++;
+				String[] arr = s.split("\\|");
+				
+				ZipCode zipCode = new ZipCode(totalCnt,arr);
+				args.add(zipCode);
+
+			}
+			br.close();
+			for (ZipCode zipcode : args){
+				session.insert("mybatis.sql.ZipCode.insertZipCode",zipcode);
+			}
+//			try{
+//				int[] num = jdbcTemplate.batchUpdate("INSERT INTO POST(SEQ,ZIPCODE,SIDO,GUGUN,DONG,RI,ST_BUNJI,ED_BUNJI)  VALUES(?,?,?,?,?,?,?,?)", args);
+//				
+//			} catch(Exception e){
+//				e.printStackTrace();
+//				
+//			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return totalCnt;
+	}
 
 }

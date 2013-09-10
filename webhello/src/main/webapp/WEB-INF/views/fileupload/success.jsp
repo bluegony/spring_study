@@ -14,6 +14,10 @@
 	contentType = ${contentType}<br/>
 	</p> 
 	
+	<h1>
+		${msg}<br/>
+	</h1>
+		${time} elapsed</br>
 
 			<c:forEach items="${uploadComponents.uploadItems}" var="item" varStatus="status">
 			<dd>
