@@ -1,0 +1,129 @@
+package com.oraclejava.web;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.oraclejava.domain.Customer;
+import com.oraclejava.domain.ZipCode;
+
+@Controller
+public class ZipCodeController {
+
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	private SqlSession session;
+
+	@RequestMapping("/createZip")
+	public ModelAndView create(){
+		ModelAndView mav = new ModelAndView("zipcode/createSuccess");
+		int cnt = readZipData();
+		mav.addObject("msg", cnt + "zip codes!");
+		return mav;
+	}
+	
+	private int readZipData(){
+		int totalCnt = 0;
+		
+		List<Object[]> args = new ArrayList<Object[]>();
+		try{
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("c:\\work\\zipcode3.txt"),"euc-kr"));
+			String s = "";
+			while((s=br.readLine())!=null){
+				totalCnt++;
+				String[] arr = s.split("\\|");
+				
+			//	ZipCode zipCode = new ZipCode(totalCnt,arr);
+			//	args.add(zipCode);
+
+				int seq = totalCnt;
+				String zipcode = arr[0];  //우편번호
+				String sido = arr[1];		//시도
+				String gugun = arr[2];	//구군
+				String dong = arr[3];	//동
+				String ri = arr[4];	//리, 건물명
+				String st_bunji = arr[5];	//시작번지
+				String ed_bunji = arr[6];	//끝번지
+				args.add(new Object[]{seq, zipcode, sido, gugun, dong, ri, st_bunji, ed_bunji});
+			}
+			br.close();
+			try{
+				int[] num = jdbcTemplate.batchUpdate("INSERT INTO POST(SEQ,ZIPCODE,SIDO,GUGUN,DONG,RI,ST_BUNJI,ED_BUNJI)  VALUES(?,?,?,?,?,?,?,?)", args);
+			} catch(Exception e){
+				e.printStackTrace();
+				
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return totalCnt;
+	}
+	// mybatis 이용
+	private int getCustomerCount3(){
+		int count = (Integer)session.selectOne("mybatis.sql.Customer.selectCustCnt");
+		return count;
+	}
+	private Customer getCustomerInfo3(int id){
+		Customer customer=(Customer)session.selectOne("mybatis.sql.Customer.selectCustomer", id);
+		return customer;
+	} 
+	private List<Customer> getCustomerList3() {
+		HashMap<String,String> hm = new HashMap<String, String>();
+		//hm.put("fname", "이");
+		//hm.put("paddr", "구2");
+		List<Customer> customerList = session.selectList("mybatis.sql.Customer.selectCustomerList",hm);
+		return customerList;
+	}
+	
+	// JdbcTemplate 이용
+	private int getCustomerCount2(){
+		int count=jdbcTemplate.queryForInt("SELECT COUNT(*) FROM CUSTOMER");
+		System.out.println("getCustomerCount2 = " + count);
+		return count;
+	}
+	private List<Customer> getCustomerList() {
+		List<Customer> customerList = jdbcTemplate.query("SELECT * FROM CUSTOMER"
+				, new RowMapper<Customer>(){
+					public Customer mapRow(ResultSet rs, int rowNum) throws SQLException{
+						Customer customer = new Customer();
+						customer.setCustId(rs.getInt("id"));
+						customer.setCustName(rs.getString("name"));
+						customer.setCustAddr(rs.getString("addr"));
+						customer.setCustEmail(rs.getString("email"));
+						return customer;
+					}
+		});
+				return customerList;
+	}
+	private Customer getCustomerInfo(int id){
+		Customer customer = jdbcTemplate.queryForObject("SELECT * FROM CUSTOMER where id=?"
+				, new RowMapper<Customer>(){
+					public Customer mapRow(ResultSet rs, int rowNum) throws SQLException{
+						Customer customer = new Customer();
+						customer.setCustId(rs.getInt("id"));
+						customer.setCustName(rs.getString("name"));
+						customer.setCustAddr(rs.getString("addr"));
+						customer.setCustEmail(rs.getString("email"));
+						return customer;
+					}
+		}, id);
+		return customer;
+	}
+		
+}

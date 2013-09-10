@@ -1,0 +1,21 @@
+<head>
+<style type="text/css">
+<!--
+img {
+	max-width: 80%;
+}
+-->
+</style>
+</head>
+<div id=img1>
+	<h1>아이유1</h1>
+	<img src=slides/img1.jpg>
+</div>
+<div id=img2>
+	<h1>아이유2</h1>
+	<img src=slides/img2.jpg>
+</div>
+<div id=img3>
+	<h1>아이유3</h1>
+	<img src=slides/img3.jpg>
+</div>

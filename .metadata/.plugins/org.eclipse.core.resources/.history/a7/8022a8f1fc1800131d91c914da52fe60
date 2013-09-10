@@ -1,0 +1,86 @@
+package com.oraclejava.web;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+public class HelloController {
+
+	@Autowired
+	private DataSource dataSource;
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+	
+	@RequestMapping("/hello")
+	public ModelAndView hello(){
+		ModelAndView mav = new ModelAndView("hello");
+		mav.addObject("msg", "Hello, World!");
+		mav.addObject("ccount", getCustomerCount2());
+		return mav;
+	}
+	@RequestMapping("/hello2")
+	public String hello2(Model model){
+		model.addAttribute("msg","dkssudgktpdyu");
+		return "hello222";	
+	}
+	
+	private int getCustomerCount2(){
+		System.out.println("getCustomerCount2");
+		int count=jdbcTemplate.queryForInt("SELECT COUNT(*) FROM CUSTOMER");
+		return count;
+	}
+	private int getCustomerCount(){
+		Connection conn = null;
+		PreparedStatement ps=null;
+		ResultSet rs= null;
+		int cnt = -1;
+		try {
+			conn = dataSource.getConnection();
+			ps = conn.prepareStatement("SELECT COUNT(*) FROM CUSTOMER");
+			rs = ps.executeQuery();
+			if(rs.next()){
+				cnt = rs.getInt(1);
+				System.out.println("cnt="+cnt);
+			}
+		} catch(SQLException sqle){
+			sqle.printStackTrace();
+		} finally{
+			try{
+				if(rs!=null){
+					rs.close();
+				}
+			} catch(Exception e){
+				e.printStackTrace();
+			}
+			try{
+				if(ps!=null){
+					ps.close();
+				}
+			} catch(Exception e){
+				e.printStackTrace();
+			}
+			try{
+				if(conn!=null){
+					conn.close();
+				}
+			} catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		return cnt;
+	}
+	
+	
+	
+}

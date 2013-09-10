@@ -1,0 +1,12 @@
+package com.oraclejava.web;
+
+import java.io.Serializable;
+
+import org.springframework.web.multipart.MultipartFile;
+
+public class FileUploadItem implements Serializable {
+	
+	private String name;
+	private MultipartFile file;
+
+}

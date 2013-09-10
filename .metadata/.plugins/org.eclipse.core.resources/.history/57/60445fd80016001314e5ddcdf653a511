@@ -1,0 +1,15 @@
+package com.oraclejava.spring.service.impl;
+
+import com.oraclejava.spring.service.Sms;
+
+@Component
+public class SmsImpl implements Sms {
+
+	public void send(String contents) {
+		// TODO Auto-generated method stub
+
+        System.out.println( "send " +contents+"!!");
+
+	}
+
+}

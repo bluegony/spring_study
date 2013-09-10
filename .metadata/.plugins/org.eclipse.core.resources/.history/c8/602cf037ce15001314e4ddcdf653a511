@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+
+<title>DOM조작</title>
+</head>
+<body>
+
+	<form name="form1">
+
+		<input tyupe="button" id="loadAll" value="load all images" />
+		<input tyupe="button" id="loadImg1" value="load 1st images" />
+		<input tyupe="button" id="loadImg2" value="load 2nd images" />
+		<input tyupe="button" id="loadImg3" value="load 3rd images" />
+
+	</form>
+	<div id="disp"></div>
+</body>
+
+<style type="text/css">
+<!--
+img {
+	max-width: 80%;
+	max-height: 80%;
+}
+-->
+</style>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$('[form1]').click(function() {
+
+			$("#disp").load("images.html #img2", function() {
+
+				$(this).fadeIn(2000);
+			}).hide();
+
+		})
+	});
+</script>

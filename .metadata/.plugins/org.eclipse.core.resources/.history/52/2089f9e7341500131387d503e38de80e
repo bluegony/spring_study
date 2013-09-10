@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>디지털 시계</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+
+<style type="text/css">
+<!--
+#clock {
+width: 450px;
+background-color: #000000;
+color: lime;
+text-align: center;
+border:10px solid blue;
+font-size: 90px;
+font-family:monospace;
+font-weight:bold;
+}
+-->
+</style>
+
+<script type="text/javascript">
+<!--
+var hour, min, sec, now;	
+
+$(function(){
+dClock();
+});	
+
+function dClock(){
+now = new Date();	
+hour = now.getHours();	
+min = now.getMinutes();
+sec = now.getSeconds();
+
+if (hour < 10)	hour = "0" + hour;
+if (min < 10)	min = "0" + min;
+if (sec < 10)	sec = "0" + sec;
+
+$("#hour").text(hour);
+$("#min").text(min);
+$("#sec").text(sec);
+setTimeout("dClock()",1000);
+}
+
+// -->
+</script>
+
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<div id="clock">
+<span id="hour">00</span>:<span id="min">00</span>:<span id="sec">00</span>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,5 @@
+package com.oraclejava.domain;
+
+public class ZipCode {
+
+}

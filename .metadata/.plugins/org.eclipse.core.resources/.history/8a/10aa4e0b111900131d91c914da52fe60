@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd">
+	
+	<bean class="org.springframework.jdbc.core.JdbcTemplate">
+		<constructor-arg ref="dataSource"/>
+	</bean>
+	
+<!-- 
+	<context:property-placeholder location="classpath:jndi.properties"/>
+	<context:property-placeholder location="classpath:jdbc.properties,classpath:jndi.properties"/>
+	 -->
+	<context:property-placeholder location="classpath:*.properties"/>
+	
+<!-- 
+	<bean id="DataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">	// 느리다. 테스트용?	
+		<property name="driverClassName" value="${jdbc.driver}"/>
+		<property name="url" value="${jdbc.url}"/>
+		<property name="username" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.passwd}"/>
+	</bean>
+	 
+	<bean id="DataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">		
+		<property name="driverClassName" value="${jdbc.driver}"/>
+		<property name="url" value="${jdbc.url}"/>
+		<property name="username" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.passwd}"/>
+		<property name="maxActive" value="${jdbc.maxPoolSize}"/>
+	</bean>
+
+	<bean id="DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">		
+		<property name="driverClass" value="${jdbc.driver}"/>
+		<property name="jdbcUrl" value="${jdbc.url}"/>
+		<property name="user" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.passwd}"/>
+		<property name="maxPoolSize" value="${jdbc.maxPoolSize}"/>
+	</bean>
+	
+	 -->
+	 
+	<!-- jndi 이용 -->
+	<!--
+	<bean id="DataSource" class="org.springframework.jndi.JndiObjectFactoryBean">		
+		<property name="jndiName" value="${jndi.datasource}"/>
+	</bean>
+	 -->
+	  
+	<jee:jndi-lookup id="dataSource" jndi-name="${jndi.datasource}"/>
+	
+	<context:component-scan base-package="com.oraclejava.service"></context:component-scan>
+
+</beans>

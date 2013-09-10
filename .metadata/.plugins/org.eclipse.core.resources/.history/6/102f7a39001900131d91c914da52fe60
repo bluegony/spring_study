@@ -1,0 +1,11 @@
+package com.oraclejava.domain;
+
+public class Customer {
+	private int custId;
+	private String custName;
+	private String custAddr;
+	private String custEmail;
+	
+	
+
+}

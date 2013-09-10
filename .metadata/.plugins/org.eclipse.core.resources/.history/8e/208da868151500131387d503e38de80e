@@ -1,0 +1,71 @@
+
+
+<!-- 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+ -->
+ 
+ <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>jQuery test</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+<script type="text/javascript">
+<!--
+$(function(){			// 문서가 load된 후에 실행됨
+	 alert("jquery!");
+// 요소 셀렉터
+$("h1").css("backgroundColor", "yellow");
+
+// 그룹핑 셀렉터
+$("strong, em").css({
+"font-size": "150%",
+"font-style": "italic",
+"color": "blue"
+}); 
+
+// ID셀렉터
+$("div#footer").css("text-align", "right");
+
+// 클래스 셀렉터
+$("li.myClass").css("font-weight", "bold");
+
+// 자손셀렉터
+$("ul#list strong").css("font-size", "300%");	
+
+// 유니버설 셀렉터
+$("li *").css("text-decoration", "underline");
+});
+//-->
+</script>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<div id="header">
+<h1>jQuery에 관하여</h1>
+<p id="description"><strong>jQuery</strong>는 편리한 JavaScript라이브러리</p>
+</div>
+
+<div id="contents">
+<h2>jQuery의 특징</h2>
+<ul id="list">
+<li class="myClass">크로스브라우저 대응</li>
+<li class="myClass">풍부한<strong>이펙트</strong>가 준비되어 있다</li>
+<li><strong>애니메이션</strong>도 간단히 처리</li>
+<li><span id="mySpan">디자이너</span>에게도 인기가 있는<em>jQuery</em></li>
+<li>디자이너에게도 인기있는 <em>jQuery</em></li>
+</ul>
+</div>
+
+<div id="footer">
+<p class="myClass"><strong>jQuery</strong>추진위원회</p>
+</div>
+
+</body>
+</html>

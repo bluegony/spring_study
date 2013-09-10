@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style type="text/css">
+<!--
+img {
+	max-width: 80%;
+	max-height: 80%;
+}
+-->
+</style>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+<script type="text/javascript">
+
+$(function(){
+	$('#loadAll').click(function(){
+		
+		$("#disp").hide().load("images.html", function(){
+			
+			$(this).fadeIn(2000);
+		}
+				);
+		
+	})
+});
+</script>
+
+<title>DOM조작</title>
+
+</head>
+
+<body>
+
+	<form name="form1">
+
+		<input tyupe="button" id="loadAll" value="load all images" />
+
+	</form>
+	<div id="disp"></div>
+</body>

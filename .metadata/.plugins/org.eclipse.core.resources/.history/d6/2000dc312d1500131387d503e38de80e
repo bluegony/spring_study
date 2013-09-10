@@ -1,0 +1,66 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>복리계산</title>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+<style type="text/css">
+<!--
+body {
+	text-align: center;
+}
+-->
+</style>
+
+<script type="text/javascript">
+<!--
+	$(function() {
+		$(":input[name='calc']").click(function() {
+			var kikan, ija, wongum;
+			// 원금
+			wongum = parseInt($(":input[name='wongum']").val());
+
+			// 이자
+			ija = parseFloat($(":input[name='ija']").val());
+			// 기간
+			kikan = parseFloat($(":input[name='kikan']").val());
+			// 수령금액을 계산
+			var suryung = bokri(wongum, kikan, ija);
+			// 수령금액을 표시
+			$(":input[name='suryung']").val(suryung);
+		});
+	});
+
+	//복리계산 처리
+	function bokri(wongum, kikan, ija) {
+		var suryung;
+//		suryung = wongum;
+//		for ( var i = 1; i <= kikan; i++) {
+//			suryung = suryung * (1 + ija / 100);
+//		}
+		
+		suryung = Math.pow(1+ija/100,kikan);
+		return Math.round(suryung);
+	}
+// -->
+</script>
+</head>
+
+<body bgcolor="#FFFFFF">
+	<h1>복리계산</h1>
+	<form name="calcForm">
+		<p>
+			금리 : <input type="text" name="ija" size="8">％<br> 금액 :<input
+				type="text" name="wongum" size="8">원<br> 불입기간: <input
+				type="text" name="kikan" size="3">년<br> <input
+				name="calc" type="button" value="계산"> <input type="reset"
+				value="클리어"><br> 수령금액: <input type="text"
+				name="suryung" size="15">원<br>
+		</p>
+	</form>
+</body>
+</html>

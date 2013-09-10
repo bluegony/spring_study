@@ -1,0 +1,14 @@
+package com.oraclejava.spring.service.impl;
+
+import com.oraclejava.spring.service.HelloService;
+
+@component
+public class HelloServiceImpl implements HelloService {
+
+	public void hello(){
+
+        System.out.println( "Hello World!" );
+	}
+
+	
+}

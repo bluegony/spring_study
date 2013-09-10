@@ -1,0 +1,12 @@
+package com.oraclejava.spring.service.impl;
+
+import com.oraclejava.spring.service.HelloService;
+
+public class aaa implements HelloService {
+
+	public void hello() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

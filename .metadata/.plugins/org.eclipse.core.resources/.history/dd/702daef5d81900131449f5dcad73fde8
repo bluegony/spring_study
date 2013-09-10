@@ -1,0 +1,8 @@
+package com.oraclejava.web;
+
+import java.io.Serializable;
+
+public class FileUploadCommand implements Serializable {
+
+	private List<FileUploadItem> uploadItems;
+}
