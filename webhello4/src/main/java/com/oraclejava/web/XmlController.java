@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import javax.sql.DataSource;
 
@@ -13,6 +14,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,12 +61,30 @@ public class XmlController {
 		return mav;
 	}
 
+//	@RequestMapping(value="/ajax/xmlIn2", consumes="application/xml", produces="application/xml;charset=utf-8")
+//	@ResponseBody
+//	public CustomerJaxb xmlIn2(@RequestBody CustomerJaxb command) {
+//
+//		return command;
+//	}
+	
 	@RequestMapping(value="/ajax/xmlIn2", consumes="application/xml", produces="application/xml;charset=utf-8")
 	@ResponseBody
-	public ModelAndView xmlIn2(@RequestBody CustomerJaxb command) {
-		ModelAndView mav = new ModelAndView("ajax/jsonIn");
-		mav.addObject("data", command);
-		return mav;
+	public Callable<CustomerJaxb> xmlIn2(@RequestBody final CustomerJaxb command) {
+		return new Callable<CustomerJaxb>(){
+
+			@Override
+			public CustomerJaxb call() throws Exception{
+				try{
+					Thread.sleep(5000);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				command.setCustName(command.getCustName()+"씨");
+				return command;
+			}
+		};
+
 	}
 	
 	private List<Customer> getCustList2() {

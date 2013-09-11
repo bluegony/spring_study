@@ -44,7 +44,7 @@ public class HelloController {
 	}
 	@RequestMapping("/hello2")
 	public String hello2(Model model) {
-		model.addAttribute("msg", "¾È³çÇÏ¼¼¿ä?");
+		model.addAttribute("msg", "hello?");
 		return "hello2";
 	}
 	
@@ -56,8 +56,8 @@ public class HelloController {
 	
 	private List<Customer> getCustList2() {
 		HashMap<String, String> hm = new HashMap<String, String>();
-		//hm.put("sung", "±è");
-		//hm.put("addr", "»ê");
+		//hm.put("sung", "ï¿½ï¿½");
+		//hm.put("addr", "ï¿½ï¿½");
 		List<Customer> custList = session.selectList(
 				"mybatis.sql.Customer.selectCustList", hm);
 		return custList;
