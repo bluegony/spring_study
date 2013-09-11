@@ -36,7 +36,7 @@ public class JsonController {
 	private SqlSession session;
 	
 	//@RequestMapping(value="/ajax/jsonOut1", headers="Accept=application/json;charset=utf-8")
-	@RequestMapping(value="/ajax/jsonOut1", produces="application/json;charset=utf-8")  //3.1ÀÌ»ó
+	@RequestMapping(value="/ajax/jsonOut1", produces="application/json;charset=utf-8")  //3.1ï¿½Ì»ï¿½
 	@ResponseBody
 	public List<Customer> jsonOut() {
 		List<Customer> list = getCustList2();
@@ -53,8 +53,8 @@ public class JsonController {
 	
 	private List<Customer> getCustList2() {
 		HashMap<String, String> hm = new HashMap<String, String>();
-		//hm.put("sung", "±è");
-		//hm.put("addr", "»ê");
+		//hm.put("sung", "ï¿½ï¿½");
+		//hm.put("addr", "ï¿½ï¿½");
 		List<Customer> custList = session.selectList(
 				"mybatis.sql.Customer.selectCustList", hm);
 		return custList;

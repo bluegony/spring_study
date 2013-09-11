@@ -38,7 +38,10 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>dispatcherServlet</servlet-name>
-		<url-pattern>*.html</url-pattern>
+			<!-- 3.1.1에서는 이렇게 하면 되지만 3.2.2에서는 안됨 
+			<url-pattern>*.html</url-pattern>
+			-->
+			<url-pattern>*.html</url-pattern>
 	</servlet-mapping>
 	
 	<resource-ref>

@@ -21,7 +21,7 @@
 		<dt>이메일</dt>
 		<dd><input type="text" name="custEmail" value="${custInfo.custEmail }"/></dd>
 	</dl>
-	<center><input type="submit" value="수정"/></center>
+	<input type="submit" value="수정"/>
 	</form>
 </body>
 </html>

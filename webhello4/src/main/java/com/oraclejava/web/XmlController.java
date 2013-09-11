@@ -33,17 +33,39 @@ public class XmlController {
 	private SqlSession session;
 	
 	//@RequestMapping(value="/ajax/jsonOut1", headers="Accept=application/json;charset=utf-8")
-	@RequestMapping(value="/ajax/xmlOut1", produces="application/xml;charset=utf-8")  //3.1�̻�
+	@RequestMapping(value="/ajax/xmlOut1.xml", produces="application/xml;charset=utf-8")  //3.1�̻�
 	@ResponseBody
-	public CustomerJaxb jsonOut() {
+	public CustomerJaxb xmlOut() {
 		CustomerJaxb outData = new CustomerJaxb();
 		outData.setCustId(1);
 		outData.setCustName("홍길동");
-		outData.setCustAddr("한양");
+		outData.setCustAddr("");
 		outData.setCustEmail("hong@hanyang.com");
 		return outData;
 	}
+
+	@RequestMapping(value="/ajax/xmlListOut1", produces="application/xml;charset=utf-8")  //3.1�̻�
+	@ResponseBody
+	public CustomerListJaxb xmlListOut() {
+		List<Customer> list = getCustList2();
+		CustomerListJaxb listJaxb = new CustomerListJaxb(list);
+		return listJaxb;
+	}
 	
+	@RequestMapping(value="/ajax/xmlIn1", consumes="application/xml")
+	public ModelAndView xmlIn(@RequestBody CustomerJaxb command) {
+		ModelAndView mav = new ModelAndView("ajax/jsonIn");
+		mav.addObject("data", command);
+		return mav;
+	}
+
+	@RequestMapping(value="/ajax/xmlIn2", consumes="application/xml", produces="application/xml;charset=utf-8")
+	@ResponseBody
+	public ModelAndView xmlIn2(@RequestBody CustomerJaxb command) {
+		ModelAndView mav = new ModelAndView("ajax/jsonIn");
+		mav.addObject("data", command);
+		return mav;
+	}
 	
 	private List<Customer> getCustList2() {
 		HashMap<String, String> hm = new HashMap<String, String>();

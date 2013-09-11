@@ -7,10 +7,50 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <c:url value="/ajax/jsonIn1.html" var="url"/>
+<c:url value="/ajax/xmlIn1.html" var="x_url"/>
+<c:url value="/ajax/xmlIn2.html" var="x_url2"/>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
 <script type="text/javascript">
 	$(function(){
+		$("#xmlIn2").click(function(){
+			$.ajax({
+				type: "POST",
+				url: "${x_url2}",
+				contentType: "application/xml;charset=utf-8",
+				data:  "<Customer><custId>99</custId><custName>ryu</custName></Customer>",
+				dataType: "html",
+				success: function(data) {
+					alert(data);
+					var name = $(data).find("custName").text();
+					alert(name);
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					alert("에러 발생!");
+					alert("textStatus=" + textStatus);  //timeout, error, notmodified, parseerror
+					alert(errorThrown);
+				}
+				
+			});
+		});
+		$("#xmlIn").click(function(){
+			$.ajax({
+				type: "POST",
+				url: "${x_url}",
+				contentType: "application/xml;charset=utf-8",
+				data: "<Customer><custId>99</custId><custName>ryu</custName></Customer>",
+				dataType: "html",
+				success: function(data) {
+					alert(data);
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					alert("에러 발생!");
+					alert("textStatus=" + textStatus);  //timeout, error, notmodified, parseerror
+					alert(errorThrown);
+				}
+				
+			});
+		});
 		$("#jsonIn").click(function(){
 			$.ajax({
 				type: "POST",
@@ -34,8 +74,7 @@
 </head>
 <body>
 	<h1>
-		<c:out value="${msg }" /> <br/>
-		현재 사원수: ${custCnt}
+		현재 고객수: ${custCnt}
 	</h1>
 	<h2>고객 정보</h2>
 	<table border="1">
@@ -58,8 +97,19 @@
 	</tr>
 	</c:forEach>
 	</table>
-	<p>
-		<span id="jsonIn">JSON형식으로 송신해서 HTML로 수신...</span>
-	</p>
+		<span id="jsonIn">JSON형식으로 송신해서 HTML로 수신...</span><br/>
+		<span id="xmlIn">xml형식으로 송신해서 HTML로 수신...</span><br/>
+		<span id="xmlIn2">xml2 형식으로 송신해서 HTML로 수신...</span><br/>
+		
+		
+	<form name="form1"  action="${url}" method="POST">
+	<table>
+		<tr><td>이름</td><td> <input type="text" name="custName"/></tr>
+		<tr><td>주소</td><td><input type="text" name="custAddr"/></tr>
+		<tr><td>이메일</td><td><input type="text" name="custEmail"/></tr>
+		<tr><td><input type="submit" value="입력"/></td><tr/>
+	</table>
+	</form>
+	
 </body>
 </html>
