@@ -29,16 +29,16 @@ public class JsonController {
 		return list;
 	}
 
-	// mybatis 이용
+	// mybatis �댁슜
 	private List<Customer> getCustomerList3() {
 		HashMap<String,String> hm = new HashMap<String, String>();
-		//hm.put("fname", "이");
-		//hm.put("paddr", "구2");
+		//hm.put("fname", "��);
+		//hm.put("paddr", "援�");
 		List<Customer> customerList = session.selectList("mybatis.sql.Customer.selectCustomerList",hm);
 		return customerList;
 	}
 
-	@RequestMapping(value="/ajax/jsonIn1", headers="Accept=application/json")
+	@RequestMapping(value="/ajax/jsonIn1", consumes="application/json")
 	public ModelAndView jsonIn(@RequestBody CustomerCommand command){
 		System.out.println("11");
 		ModelAndView mav = new ModelAndView("ajax/jsonIn");

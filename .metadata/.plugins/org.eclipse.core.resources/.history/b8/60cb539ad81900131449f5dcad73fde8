@@ -1,7 +1,0 @@
-package com.oraclejava.web;
-
-import java.io.Serializable;
-
-public class FileUploadCommand implements Serializable {
-
-}
