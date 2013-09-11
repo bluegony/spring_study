@@ -33,7 +33,7 @@ function connect() {
 			}
 			var text = data.name+" : "+data.message;
 			text = $("<div>").append(text);
-			$("#result").append(text)
+			$("#result").prepend(text)
 		}
 	})	
 }
