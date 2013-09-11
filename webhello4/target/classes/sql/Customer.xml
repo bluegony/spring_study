@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.sql.Customer">
+	<select id="selectCustCnt" resultType="int">
+		SELECT COUNT(*) FROM CUSTOMER
+	</select>
+	<select id="selectCustInfo" parameterType="int" resultType="Customer">
+		SELECT 
+			ID as custId,
+			NAME as custName,
+			ADDR as custAddr,
+			EMAIL as custEmail
+		 FROM CUSTOMER
+		 WHERE ID = #{custId}
+	</select>
+	<select id="selectCustList" parameterType="java.util.HashMap" resultType="Customer">
+		SELECT 
+			ID as custId,
+			NAME as custName,
+			ADDR as custAddr,
+			EMAIL as custEmail
+		 FROM CUSTOMER
+		 <where>
+		 	<if test="sung != null">
+		 		NAME LIKE #{sung} || '%'
+		 	</if>
+		 	<if test="addr != null"> 
+		 		AND ADDR LIKE '%' || #{addr} || '%'
+		 	</if>
+		 </where>
+		  
+	</select>
+	
+	<update id="updateCustomer" parameterType="Customer">
+		UPDATE CUSTOMER
+		SET NAME = #{custName}, ADDR=#{custAddr}, EMAIL=#{custEmail}
+		WHERE ID = #{custId}
+	</update>
+	
+</mapper>	
