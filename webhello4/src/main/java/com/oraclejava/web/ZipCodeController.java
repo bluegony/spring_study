@@ -54,7 +54,7 @@ public class ZipCodeController {
 	private int createZip() {
 		int totalCnt = 0;
 		try {
-			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("c:\\work\\zipcode3.txt"), "euc-kr"));
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("c:\\work\\zipcode3.txt"), "utf-8"));
 			String s = "";
 			List<Object[]> args = new ArrayList<Object[]>();
 			while ((s = br.readLine()) != null) {
@@ -82,7 +82,7 @@ public class ZipCodeController {
 	private int createZip2() {
 		int totalCnt = 0;
 		try {
-			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("c:\\javaweb\\zipcode3.txt"), "euc-kr"));
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("c:\\javaweb\\zipcode3.txt"), "utf-8"));
 			String s = "";
 			List<Post> args = new ArrayList<Post>();
 			while ((s = br.readLine()) != null) {

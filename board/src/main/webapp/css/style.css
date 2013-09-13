@@ -1,0 +1,46 @@
+body {
+	background-color : white;
+	font-family : ±¼¸²; 
+	font-size : 9pt;
+}
+
+.table_default {
+	font-family : ±¼¸²;
+	font-size : 9pt;
+	color : #000000;
+}
+
+.list_menu {
+	height : 30;
+	background-color : #FFFFFF;
+	font-family : ±¼¸²; 
+	font-size : 9pt;
+	color : #000000;
+}
+
+.list_title {
+	height : 30;
+	background-color : #7B869A;
+	font-family : ±¼¸²; 
+	font-size : 9pt;
+	font-weight : bold;
+	color : #FFFFFF;
+	text-align : center;
+}
+
+.list_content {
+	height : 25;
+	background-color : #FFFFFF;
+	font-family : ±¼¸²; 
+	font-size : 9pt;
+	color : #000000;
+}
+
+.list_page {
+	height : 30;
+	background-color : #FFFFFF;
+	font-family : ±¼¸²; 
+	font-size : 9pt;
+	color : #000000;
+	text-align : center;
+}
